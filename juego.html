@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Juego Simple a Pantalla Completa</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #game-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        font-size: 2em;
+      }
+      #game-container input {
+        font-size: 1em;
+        padding: 0.5em;
+        margin-top: 1em;
+      }
+      #game-container button {
+        font-size: 1em;
+        padding: 0.5em;
+        margin-top: 1em;
+      }
+      .success {
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="game-container">
+      <h1>Juego de Adivinanza de Números</h1>
+      <p>Trata de adivinar el número que estoy pensando entre 1 y 100.</p>
+      <input type="number" id="guess" placeholder="Ingresa un número">
+      <button id="guess-btn">Adivinar</button>
+      <div id="result"></div>
+    </div>
+
+    <script>
+      // Generar un número aleatorio entre 1 y 100
+      const randomNumber = Math.floor(Math.random() * 100) + 1;
+
+      // Contador para el número de intentos
+      let tries = 0;
+
+      // Función para comprobar si el número es correcto
+      function checkGuess() {
+        // Obtener el número ingresado por el usuario
+        const userGuess = Number(document.getElementById('guess').value);
+
+        // Actualizar el número de intentos
+        tries++;
+
+        // Comprobar si el número es correcto
+        if (userGuess === randomNumber) {
+          // Mostrar mensaje de éxito
+          document.getElementById('result').innerHTML = `<h2 class="success">¡Correcto!</h2><p>Lo adivinaste en ${tries} intentos.</p>`;
+        } else if (userGuess > randomNumber) {
+          // Mostrar mensaje de que el número es demasiado alto
+          document.getElementById('result').innerHTML = '<h2>El número es demasiado alto.</h2><p>Intenta de nuevo.</p>';
+        } else {
+          // Mostrar mensaje de que el número es demasiado bajo
+          document.getElementById('result').innerHTML = '<h2>El número es demasiado bajo.</h2><p>Intenta de nuevo.</p>';
+        }
+      }
+
+      // Escuchar el evento "click" del botón "Adivinar"
+      document.getElementById('guess-btn').addEventListener('click', checkGuess);
+    </script>
+  </body>
+</html>
